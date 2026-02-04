@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>HTML Slide Deck</title>
+<title>Slide Deck</title>
 <style>
   html, body {
     margin: 0;
@@ -14,23 +14,26 @@
     background-color: #0F172A;
   }
 
-  #slideContainer {
+  /* Border wrapper around the slide */
+  #slideWrapper {
     width: 1280px;
     height: 720px;
-    position: absolute;
-    transform-origin: top left;
+    border: 4px solid #3B82F6; /* visible border around every slide */
+    box-sizing: border-box;
+    position: absolute; /* allows centering with translate */
+    background-color: #0F172A; /* ensures background behind border */
   }
 
   iframe {
-    width: 1280px;
-    height: 720px;
+    width: 100%;
+    height: 100%;
     border: none;
     display: block;
   }
 </style>
 </head>
 <body>
-  <div id="slideContainer">
+  <div id="slideWrapper">
     <iframe id="slideFrame" src="slide1.html"></iframe>
   </div>
 
@@ -38,14 +41,14 @@
   const totalSlides = 12;
   let currentSlide = 1;
   const iframe = document.getElementById('slideFrame');
-  const container = document.getElementById('slideContainer');
+  const wrapper = document.getElementById('slideWrapper');
 
   function loadSlide(n) {
     if (n < 1) n = 1;
     if (n > totalSlides) n = totalSlides;
     currentSlide = n;
     iframe.src = `slide${currentSlide}.html`;
-    resizeSlides();
+    resizeSlide();
   }
 
   document.addEventListener('keydown', e => {
@@ -53,26 +56,23 @@
     if (e.key === 'ArrowLeft') loadSlide(currentSlide - 1);
   });
 
-  function resizeSlides() {
+  function resizeSlide() {
+    // Scale slightly smaller to fit all slides on screen
     const scale = Math.min(
       window.innerWidth / 1280,
-      window.innerHeight / 720
+      window.innerHeight / 720,
+      0.95 // 95% scale to avoid cropping
     );
 
+    // Center the wrapper
     const offsetX = (window.innerWidth - 1280 * scale) / 2;
-    let offsetY = (window.innerHeight - 720 * scale) / 2;
+    const offsetY = (window.innerHeight - 720 * scale) / 2;
 
-    // Add extra vertical offset for slides that are cropped
-    const slidesWithBottomContent = [1, 5, 7]; // example: slide numbers with content close to bottom
-    if (slidesWithBottomContent.includes(currentSlide)) {
-        offsetY -= 20; // move slide up by 20px to make bottom visible
-    }
-
-    container.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
+    wrapper.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
   }
 
-  window.addEventListener('resize', resizeSlides);
-  resizeSlides(); // initial scale
+  window.addEventListener('resize', resizeSlide);
+  resizeSlide(); // initial call
 </script>
 </body>
 </html>
