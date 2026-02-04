@@ -95,14 +95,13 @@ function loadSlide(i) {
   counter.textContent = `${i + 1} / ${slides.length}`;
 }
 
-/* Schaal en centreer slide */
+/* Schaal en centreer slide met 95% veiligheid */
 function scaleSlide() {
   const scaleX = window.innerWidth / SLIDE_WIDTH;
   const scaleY = window.innerHeight / SLIDE_HEIGHT;
-  const scale = Math.min(scaleX, scaleY);
+  const scale = Math.min(scaleX, scaleY) * 0.95; // 95% schaal voor safety
 
-  wrapper.style.transform =
-    `translate(-50%, -50%) scale(${scale})`;
+  wrapper.style.transform = `translate(-50%, -50%) scale(${scale})`;
 }
 
 /* Init */
