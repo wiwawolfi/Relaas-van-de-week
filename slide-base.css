@@ -1,0 +1,55 @@
+/* slide-base.css: Add to all slides */
+
+/* Root slide size */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* Slide container */
+.slide-container {
+    width: 1280px;
+    height: 720px;
+    padding: 40px 60px;       /* keep your spacing */
+    box-sizing: border-box;    /* key fix: include padding inside height */
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: #0F172A; /* your background */
+}
+
+/* Adjust columns & bottom spacing to prevent cropping */
+.left-col {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    background-color: #1E293B;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #334155;
+    position: relative;
+    margin-bottom: 20px;      /* reduced from 74.5px */
+}
+
+.stat-row {
+    display: flex;
+    gap: 5px;
+    margin-top: auto;
+    padding-bottom: 20px;     /* reduced from 100px */
+}
+
+/* Optional: ensure map/chart fits inside column */
+#map-container {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    max-height: calc(100% - 20px);  /* prevents overflow */
+    margin-bottom: 40px;
+}
+
+/* Safety: any other flex / padding spacing still inside container */
