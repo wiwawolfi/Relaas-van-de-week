@@ -17,8 +17,8 @@
   #slideContainer {
     width: 1280px;
     height: 720px;
+    position: absolute;
     transform-origin: top left;
-    position: absolute; /* position absolutely to allow precise centering */
   }
 
   iframe {
@@ -58,7 +58,6 @@
       window.innerHeight / 720
     );
 
-    // Calculate offsets to truly center the scaled container
     const offsetX = (window.innerWidth - 1280 * scale) / 2;
     const offsetY = (window.innerHeight - 720 * scale) / 2;
 
@@ -66,8 +65,7 @@
   }
 
   window.addEventListener('resize', resizeSlides);
-  resizeSlides(); // initial call
+  resizeSlides(); // initial scale
 </script>
 </body>
 </html>
-
