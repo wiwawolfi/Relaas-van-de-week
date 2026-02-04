@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Slide Deck</title>
 <style>
   html, body {
@@ -14,14 +14,14 @@
     background-color: #0F172A;
   }
 
-  /* Border wrapper around the slide */
+  /* Wrapper with border around every slide */
   #slideWrapper {
     width: 1280px;
     height: 720px;
-    border: 4px solid #3B82F6; /* visible border around every slide */
+    border: 4px solid #3B82F6;
     box-sizing: border-box;
-    position: absolute; /* allows centering with translate */
-    background-color: #0F172A; /* ensures background behind border */
+    position: absolute;
+    background-color: #0F172A;
   }
 
   iframe {
@@ -38,33 +38,37 @@
   </div>
 
 <script>
-  const totalSlides = 12;
-  let currentSlide = 1;
+  // 1️⃣ List all slides in correct order
+  const slides = [
+    "slide1.html", "slide2.html", "slide3.html", "slide4.html",
+    "slide5.html", "slide6.html", "slide7.html", "slide8.html",
+    "slide9.html", "slide10.html", "slide11.html", "slide12.html"
+  ];
+
+  let currentSlide = 0;
   const iframe = document.getElementById('slideFrame');
   const wrapper = document.getElementById('slideWrapper');
 
-  function loadSlide(n) {
-    if (n < 1) n = 1;
-    if (n > totalSlides) n = totalSlides;
-    currentSlide = n;
-    iframe.src = `slide${currentSlide}.html`;
+  function loadSlide(index) {
+    if(index < 0) index = 0;
+    if(index >= slides.length) index = slides.length - 1;
+    currentSlide = index;
+    iframe.src = slides[currentSlide];
     resizeSlide();
   }
 
   document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight') loadSlide(currentSlide + 1);
-    if (e.key === 'ArrowLeft') loadSlide(currentSlide - 1);
+    if(e.key === "ArrowRight") loadSlide(currentSlide + 1);
+    if(e.key === "ArrowLeft") loadSlide(currentSlide - 1);
   });
 
   function resizeSlide() {
-    // Scale slightly smaller to fit all slides on screen
     const scale = Math.min(
       window.innerWidth / 1280,
       window.innerHeight / 720,
-      0.95 // 95% scale to avoid cropping
+      0.95 // Slightly smaller to prevent any cropping
     );
 
-    // Center the wrapper
     const offsetX = (window.innerWidth - 1280 * scale) / 2;
     const offsetY = (window.innerHeight - 720 * scale) / 2;
 
@@ -72,7 +76,9 @@
   }
 
   window.addEventListener('resize', resizeSlide);
-  resizeSlide(); // initial call
+
+  // 2️⃣ Initial load
+  loadSlide(0);
 </script>
 </body>
 </html>
