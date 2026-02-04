@@ -45,6 +45,7 @@
     if (n > totalSlides) n = totalSlides;
     currentSlide = n;
     iframe.src = `slide${currentSlide}.html`;
+    resizeSlides();
   }
 
   document.addEventListener('keydown', e => {
@@ -59,7 +60,13 @@
     );
 
     const offsetX = (window.innerWidth - 1280 * scale) / 2;
-    const offsetY = (window.innerHeight - 720 * scale) / 2;
+    let offsetY = (window.innerHeight - 720 * scale) / 2;
+
+    // Add extra vertical offset for slides that are cropped
+    const slidesWithBottomContent = [1, 5, 7]; // example: slide numbers with content close to bottom
+    if (slidesWithBottomContent.includes(currentSlide)) {
+        offsetY -= 20; // move slide up by 20px to make bottom visible
+    }
 
     container.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
   }
