@@ -1,34 +1,24 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-<meta charset="utf-8"/>
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>HTML Slide Deck</title>
 <style>
   html, body {
     margin: 0;
-    height: 100%;
+    padding: 0;
     width: 100%;
+    height: 100%;
     overflow: hidden;
     background-color: #0F172A;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  /* Outer wrapper to center the scaled container */
-  #wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
   }
 
   #slideContainer {
     width: 1280px;
     height: 720px;
-    transform-origin: top left; /* keep scaling from top-left */
+    transform-origin: top left;
+    position: absolute; /* position absolutely to allow precise centering */
   }
 
   iframe {
@@ -40,10 +30,8 @@
 </style>
 </head>
 <body>
-  <div id="wrapper">
-    <div id="slideContainer">
-      <iframe id="slideFrame" src="slide1.html"></iframe>
-    </div>
+  <div id="slideContainer">
+    <iframe id="slideFrame" src="slide1.html"></iframe>
   </div>
 
 <script>
@@ -53,15 +41,15 @@
   const container = document.getElementById('slideContainer');
 
   function loadSlide(n) {
-    if(n < 1) n = 1;
-    if(n > totalSlides) n = totalSlides;
+    if (n < 1) n = 1;
+    if (n > totalSlides) n = totalSlides;
     currentSlide = n;
     iframe.src = `slide${currentSlide}.html`;
   }
 
   document.addEventListener('keydown', e => {
-    if(e.key === 'ArrowRight') loadSlide(currentSlide + 1);
-    if(e.key === 'ArrowLeft') loadSlide(currentSlide - 1);
+    if (e.key === 'ArrowRight') loadSlide(currentSlide + 1);
+    if (e.key === 'ArrowLeft') loadSlide(currentSlide - 1);
   });
 
   function resizeSlides() {
@@ -69,11 +57,17 @@
       window.innerWidth / 1280,
       window.innerHeight / 720
     );
-    container.style.transform = `scale(${scale})`;
+
+    // Calculate offsets to truly center the scaled container
+    const offsetX = (window.innerWidth - 1280 * scale) / 2;
+    const offsetY = (window.innerHeight - 720 * scale) / 2;
+
+    container.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
   }
 
   window.addEventListener('resize', resizeSlides);
-  resizeSlides(); // initial scale
+  resizeSlides(); // initial call
 </script>
 </body>
 </html>
+
