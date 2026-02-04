@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="nl">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Roboto:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+        <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+        <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #0F172A;
+            font-family: 'Roboto', sans-serif;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background-color: #0F172A;
+            overflow: hidden;
+            padding: 50px 80px;
+        }
+        /* Top Navigation/Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 20px;
+        }
+        .header-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 2rem;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        .header-title span {
+            color: #34D399; /* Emerald 400 */
+            margin-left: 10px;
+        }
+        .header-badge {
+            background-color: #1E293B;
+            color: #94A3B8;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            height: 100%;
+        }
+
+        /* Feature Card */
+        .feature-card {
+            flex: 1;
+            background-color: #1E293B;
+            border-radius: 12px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: transform 0.3s ease;
+            border: 1px solid #334155;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        /* Card accents - Trade */
+        .card-trade { border-top: 4px solid #3B82F6; }
+        .icon-trade { color: #3B82F6; background: rgba(59, 130, 246, 0.1); }
+        
+        /* Card accents - Energy */
+        .card-energy { border-top: 4px solid #F59E0B; }
+        .icon-energy { color: #F59E0B; background: rgba(245, 158, 11, 0.1); }
+        
+        /* Card accents - Markets */
+        .card-market { border-top: 4px solid #10B981; }
+        .icon-market { color: #10B981; background: rgba(16, 185, 129, 0.1); }
+
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 25px;
+        }
+
+        .card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .card-desc {
+            color: #CBD5E1;
+            font-size: 1rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .article-link {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #334155;
+            display: flex;
+            align-items: center;
+        }
+
+        .article-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        .badge-trade { background-color: rgba(59, 130, 246, 0.2); color: #60A5FA; }
+        .badge-energy { background-color: rgba(245, 158, 11, 0.2); color: #FBBF24; }
+        .badge-market { background-color: rgba(16, 185, 129, 0.2); color: #34D399; }
+
+        .article-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            color: #94A3B8;
+            font-style: italic;
+        }
+
+        /* Intro text area */
+        .intro-text {
+            color: #94A3B8;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            max-width: 900px;
+            line-height: 1.5;
+        }
+
+        .interconnected-banner {
+            margin-top: 30px;
+            background-color: rgba(51, 65, 85, 0.3);
+            border-radius: 8px;
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            border-left: 4px solid #8B5CF6;
+        }
+        .banner-icon {
+            color: #8B5CF6;
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+        .banner-text {
+            color: #E2E8F0;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+    </style>
+    </head>
+    <body>
+        <div class="slide-container">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-title">
+                    <i class="fas fa-layer-group mr-4 text-gray-400"></i>
+                    Inleiding <span>&amp; Overzicht</span>
+                </div>
+                <div class="header-badge">
+                    Actuele Economie
+</div>
+            </header>
+            <!-- Intro Paragraph -->
+            <div class="intro-text">
+                <p>In deze presentatie bespreken we drie recente economische gebeurtenissen die een grote impact hebben op de Europese economie en het dagelijks leven.</p>
+            </div>
+            <!-- Main Content Grid -->
+            <div class="content-grid">
+                <!-- Card 1: Handel -->
+                <div class="feature-card card-trade">
+                    <div class="card-icon icon-trade">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3 class="card-title">Internationale Handel</h3>
+                    <div class="card-desc">
+                        <p>Veranderingen in wereldwijde handelsstromen door nieuwe verdragen en geopolitieke verschuivingen die marktoegang bepalen.</p>
+                    </div>
+                    <div class="article-link">
+                        <span class="article-badge badge-trade">Artikel 1</span>
+                        <div class="article-title">
+                            <p>EU-India handelsakkoord</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2: Energie -->
+                <div class="feature-card card-energy">
+                    <div class="card-icon icon-energy">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="card-title">Energieprijzen</h3>
+                    <div class="card-desc">
+                        <p>De sterke invloed van vraag, aanbod en externe factoren op de kosten van energie voor huishoudens en industrie.</p>
+                    </div>
+                    <div class="article-link">
+                        <span class="article-badge badge-energy">Artikel 2</span>
+                        <div class="article-title">
+                            <p>Stijgende Europese gasprijs</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3: Markten -->
+                <div class="feature-card card-market">
+                    <div class="card-icon icon-market">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="card-title">Financiële Markten</h3>
+                    <div class="card-desc">
+                        <p>Hoe politieke uitspraken en onzekerheid direct leiden tot volatiliteit en koersschommelingen op de beurs.</p>
+                    </div>
+                    <div class="article-link">
+                        <span class="article-badge badge-market">Artikel 3</span>
+                        <div class="article-title">
+                            <p>De 'TACO-rally'</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Bottom Banner -->
+            <div class="interconnected-banner">
+                <i class="fas fa-project-diagram banner-icon"></i>
+                <div class="banner-text">
+                    <p>Kernboodschap: Deze onderwerpen tonen hoe <strong>politiek, economie en markten</strong> onlosmakelijk met elkaar verbonden zijn.</p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

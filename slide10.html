@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="nl">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+        <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+        <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+        <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #0F172A;
+            font-family: 'Roboto', sans-serif;
+            color: white;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background-color: #0F172A;
+            overflow: hidden;
+            padding: 40px 60px;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 25px;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 2.2rem;
+            color: white;
+            line-height: 1.1;
+        }
+        .header-title span {
+            color: #60A5FA; /* Blue for Case Study */
+        }
+        .badge {
+            background-color: rgba(96, 165, 250, 0.1);
+            color: #60A5FA;
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Main Content Grid */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            flex: 1;
+            height: 100%;
+        }
+
+        /* Left Column: Context */
+        .context-col {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .case-box {
+            background-color: #1E293B;
+            border-radius: 12px;
+            padding: 30px;
+            border-left: 5px solid #60A5FA;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .case-icon {
+            position: absolute;
+            top: -20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #0F172A;
+            border: 2px solid #60A5FA;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #60A5FA;
+            font-size: 1.2rem;
+        }
+
+        .case-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: flex-start;
+        }
+        .timeline-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-top: 6px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .t-red { background-color: #EF4444; box-shadow: 0 0 10px rgba(239, 68, 68, 0.4); }
+        .t-green { background-color: #10B981; box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
+        
+        .timeline-content h4 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #CBD5E1;
+        }
+        .timeline-content p {
+            margin: 4px 0 0 0;
+            font-size: 0.9rem;
+            color: #94A3B8;
+        }
+
+        /* Right Column: Charts */
+        .charts-col {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: 100%;
+        }
+
+        .chart-card {
+            flex: 1;
+            background-color: #1E293B;
+            border-radius: 12px;
+            padding: 15px 20px;
+            border: 1px solid #334155;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 8px;
+        }
+        .ch-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #E2E8F0;
+        }
+        .ch-tag {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .tag-negative { background: rgba(239, 68, 68, 0.15); color: #EF4444; }
+        .tag-positive { background: rgba(16, 185, 129, 0.15); color: #10B981; }
+
+        .chart-visual {
+            flex: 1;
+            width: 100%;
+            position: relative;
+        }
+        
+        .comparison-arrow {
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: #64748B;
+        }
+
+        /* Highlight Box */
+        .highlight-quote {
+            background-color: rgba(59, 130, 246, 0.05);
+            border: 1px dashed #3B82F6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            font-style: italic;
+            color: #93C5FD;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+    </style>
+    </head>
+    <body>
+        <div class="slide-container">
+            <!-- Header -->
+            <header class="header">
+                <div class="flex flex-col">
+                    <h1 class="header-title">Case Study: <span>De Groenland-kwestie</span></h1>
+                    <p class="text-slate-400 mt-1">Praktijkvoorbeeld van de TACO-rally</p>
+                </div>
+                <div class="badge">
+                    <i class="fas fa-microscope mr-2"></i>Analyse
+                </div>
+            </header>
+            <!-- Main Content Grid -->
+            <div class="grid-container">
+                <!-- Left: The Story -->
+                <div class="context-col">
+                    <div class="case-box">
+                        <div class="case-icon">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                        <h2 class="case-title">Geopolitieke Spanning</h2>
+                        <!-- Timeline Events -->
+                        <div class="timeline-item">
+                            <div class="timeline-dot t-red"></div>
+                            <div class="timeline-content">
+                                <h4>De Dreiging</h4>
+                                <p>Trump dreigde met zware economische sancties en politieke druk rondom de strategische status van Groenland.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot t-green"></div>
+                            <div class="timeline-content">
+                                <h4>De Ommekeer</h4>
+                                <p>Na hevige marktreacties en diplomatiek overleg trok Trump zijn dreigementen publiekelijk in ("Chickens Out").</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Mechanism Explanation -->
+                    <div class="highlight-quote">
+                        <i class="fas fa-quote-left mr-2"></i>
+                        Beleggers reageerden eerst met paniekverkoop, om vervolgens massaal terug te kopen toen de lucht geklaard was.
+                        <i class="fas fa-quote-right ml-2"></i>
+                    </div>
+                </div>
+                <!-- Right: The Charts -->
+                <div class="charts-col">
+                    <!-- Chart 1: Panic Phase -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <span class="ch-title"><i class="fas fa-bolt mr-2 text-red-400"></i>Fase 1: Onzekerheid</span>
+                            <span class="ch-tag tag-negative">-3.8%</span>
+                        </div>
+                        <div class="chart-visual" id="chart-panic"></div>
+                    </div>
+                    <!-- Chart 2: Rally Phase -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <span class="ch-title"><i class="fas fa-rocket mr-2 text-green-400"></i>Fase 2: Herstel &amp; Rally</span>
+                            <span class="ch-tag tag-positive">+5.2%</span>
+                        </div>
+                        <div class="chart-visual" id="chart-rally"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+        // Init ECharts
+        // Chart 1: Panic Drop
+        var chartPanic = echarts.init(document.getElementById('chart-panic'));
+        var optionPanic = {
+            backgroundColor: 'transparent',
+            grid: { top: '10%', bottom: '20%', left: '10%', right: '5%' },
+            xAxis: {
+                type: 'category',
+                data: ['T-2', 'T-1', 'Nieuws', 'T+1', 'T+2'],
+                axisLine: { lineStyle: { color: '#64748B' } },
+                axisLabel: { color: '#94A3B8', fontSize: 10 }
+            },
+            yAxis: {
+                type: 'value',
+                splitLine: { show: false },
+                axisLabel: { show: false }
+            },
+            series: [{
+                data: [100, 101, 95, 93, 92],
+                type: 'line',
+                smooth: true,
+                lineStyle: { color: '#EF4444', width: 3 },
+                areaStyle: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0, color: 'rgba(239, 68, 68, 0.5)'
+                    }, {
+                        offset: 1, color: 'rgba(239, 68, 68, 0.0)'
+                    }])
+                },
+                markPoint: {
+                    data: [
+                        { type: 'min', name: 'Low', label: { show: true, color: '#fff' } }
+                    ]
+                }
+            }]
+        };
+        chartPanic.setOption(optionPanic);
+
+        // Chart 2: Rally Recovery
+        var chartRally = echarts.init(document.getElementById('chart-rally'));
+        var optionRally = {
+            backgroundColor: 'transparent',
+            grid: { top: '10%', bottom: '20%', left: '10%', right: '5%' },
+            xAxis: {
+                type: 'category',
+                data: ['Low', 'Intrekking', 'T+1', 'T+2', 'Rally'],
+                axisLine: { lineStyle: { color: '#64748B' } },
+                axisLabel: { color: '#94A3B8', fontSize: 10 }
+            },
+            yAxis: {
+                type: 'value',
+                splitLine: { show: false },
+                axisLabel: { show: false }
+            },
+            series: [{
+                data: [92, 94, 98, 102, 104],
+                type: 'line',
+                smooth: true,
+                lineStyle: { color: '#10B981', width: 3 },
+                areaStyle: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0, color: 'rgba(16, 185, 129, 0.5)'
+                    }, {
+                        offset: 1, color: 'rgba(16, 185, 129, 0.0)'
+                    }])
+                },
+                markPoint: {
+                    data: [
+                        { type: 'max', name: 'High', label: { show: true, color: '#fff' } }
+                    ]
+                }
+            }]
+        };
+        chartRally.setOption(optionRally);
+
+        window.addEventListener('resize', function() {
+            chartPanic.resize();
+            chartRally.resize();
+        });
+    </script>
+    </body>
+</html>

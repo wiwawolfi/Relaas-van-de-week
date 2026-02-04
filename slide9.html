@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="nl" data-theme="light" style="">
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <link href="tailwind_theme/tailwind.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+        <style>body { margin: 0; padding: 0; overflow: hidden; background-color: #0F172A; font-family: 'Roboto', sans-serif; color: white; } .slide-container { width: 1280px; height: 720px; position: relative; display: flex; flex-direction: column; background-color: #0F172A; overflow: hidden; padding: 40px 60px; } /* Header */.header { margin-bottom: 20px; border-bottom: 1px solid #334155; padding-bottom: 15px; display: flex; justify-content: space-between; align-items: center; } .header-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 2.2rem; color: white; line-height: 1.1; } .header-title span { color: #10B981;  /* Green for Rally */ } .header-badge { background-color: rgba(16, 185, 129, 0.1); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.3); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; } /* Acronym Section */.acronym-box { background-color: #1E293B; border-radius: 16px; padding: 20px; border: 1px solid #334155; margin-bottom: 30px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; } /* Background pattern for acronym box */.acronym-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 20px 20px; opacity: 0.5; } .acronym-text { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 2.5rem; letter-spacing: 2px; z-index: 10; display: flex; gap: 10px; } .char-t { color: #FBBF24; } /* Trump - Red */.char-a { color: #F87171; } .char-c { color: #3B82F6; } /* Chicken - Yellow/Orange */.char-o { color: #10B981; } .acronym-definition { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; font-weight: 300; color: #94A3B8; margin-left: 20px; z-index: 10; border-left: 2px solid #334155; padding-left: 20px; } .highlight-phrase { color: white; font-weight: 600; } /* Flow Process Container */.flow-container { flex: 1; display: flex; justify-content: space-between; align-items: center; position: relative; padding: 0 20px; } /* Connecting Line */.flow-line { position: absolute; top: 50%; left: 60px; right: 60px; height: 4px; background-color: #334155; transform: translateY(-50%); z-index: 0; } .flow-line-fill { position: absolute; top: 0; left: 0; height: 100%; width: 75%; background: linear-gradient(90deg, #F87171, #FBBF24, #10B981); opacity: 0.3; } /* Step Cards */.step-card { position: relative; z-index: 10; width: 260px; height: 320px; background-color: #1E293B; border-radius: 12px; border: 1px solid #334155; display: flex; flex-direction: column; align-items: center; padding: 25px 20px; text-align: center; transition: transform 0.3s; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5); } /* Specific Step Styling *//* Step 1: Threat */.step-1 { border-top: 5px solid #F59E0B; } .icon-1 { background-color: rgba(245, 158, 11, 0.15); color: #F59E0B; } /* Step 2: Drop */.step-2 { border-top: 5px solid #EF4444; } .icon-2 { background-color: rgba(239, 68, 68, 0.15); color: #EF4444; } /* Step 3: Turn/Chicken */.step-3 { border-top: 5px solid #3B82F6; } .icon-3 { background-color: rgba(59, 130, 246, 0.15); color: #3B82F6; } /* Step 4: Rally */.step-4 { border-top: 5px solid #10B981; } .icon-4 { background-color: rgba(16, 185, 129, 0.15); color: #10B981; } .step-number { position: absolute; top: -15px; background-color: #0F172A; border: 2px solid #334155; color: #94A3B8; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; } .step-icon { width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 20px; margin-top: 10px; } .step-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.2rem; margin-bottom: 10px; color: white; } .step-desc { font-size: 0.9rem; color: #94A3B8; line-height: 1.5; } .market-effect { margin-top: auto; background-color: #0F172A; padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; width: 100%; } /* Arrow connectors */.arrow-connector { position: absolute; top: 50%; font-size: 1.5rem; color: #475569; transform: translateY(-50%); z-index: 1; } .arr-1 { left: 25%; } .arr-2 { left: 50%; margin-left: -10px; } .arr-3 { left: 75%; margin-left: -20px; }</style>
+        <link href="https://fonts.googleapis.com/css2?family=Open%20Sans:wght@400&amp;display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Google%20Sans:wght@400&amp;display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Noto%20Sans%20JP:wght@400&amp;display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&amp;display=swap" rel="stylesheet">
+    </head>
+    <body style="">
+        <div class="slide-container">
+            <!-- Header -->
+            <header class="header">
+                <div class="flex flex-col">
+                    <h1 class="header-title">Wat is een <span>TACO-rally</span>?</h1>
+                    <p class="text-slate-400 mt-1">Marktpsychologie en politieke cycli</p>
+                </div>
+                <div class="header-badge">
+                    <i class="fas fa-bullhorn mr-2"></i>Artikel 3
+                </div>
+            </header>
+            <!-- Acronym Definition -->
+            <div class="acronym-box">
+                <div class="acronym-bg"></div>
+                <div class="acronym-text">
+                    <span class="char-t">T</span>
+                    <span class="char-a">A</span>
+                    <span class="char-c">C</span>
+                    <span class="char-o">O</span>
+                </div>
+                <div class="acronym-definition">
+                    <span class="highlight-phrase" style="color: #FBBF24;">= "Trump</span> <span class="highlight-phrase" style="color: #F87171;">Always <span class="highlight-phrase" style="color: #3B82F6;">Chickens</span> <span class="highlight-phrase" style="color: #10B981;">Out"</span> 
+                </div>
+            </div>
+            <!-- Process Flow -->
+            <div class="flow-container">
+                <!-- Connection Line -->
+                <div class="flow-line">
+                    <div class="flow-line-fill"></div>
+                </div>
+                <!-- Arrows -->
+                <div class="arrow-connector arr-1">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="arrow-connector arr-2">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="arrow-connector arr-3">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <!-- Step 1 -->
+                <div class="step-card step-1">
+                    <div class="step-number" style="border-color: #F59E0B; color: #F59E0B;">1</div>
+                    <div class="step-icon icon-1">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3 class="step-title">De Dreiging</h3>
+                    <p class="step-desc">
+                Trump kondigt zware maatregelen, tarieven of sancties aan via media of social media. </p>
+                    <div class="market-effect" style="color: #F59E0B;">
+                        <i class="fas fa-bolt mr-1"></i> Schok
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="step-card step-2">
+                    <div class="step-number" style="border-color: #EF4444; color: #EF4444;">2</div>
+                    <div class="step-icon icon-2">
+                        <i class="fas fa-arrow-down mr-1" style="transform: scaleY(1);"></i> 
+                        <!-- Flipped chart for down -->
+                    </div>
+                    <h3 class="step-title">Markt Daalt</h3>
+                    <p class="step-desc">
+                Investeerders worden nerveus. Onzekerheid zorgt voor verkoopgolf en dalende koersen. </p>
+                    <div class="market-effect" style="color: #EF4444;">
+                        <i class="fas fa-down 1" style="position: relative; transform: translate(22.799px, -206.82px);"></i>
+                        <i class="fas fa-arrow-down mr-1"></i> Risk-Off
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="step-card step-3">
+                    <div class="step-number" style="border-color: #3B82F6; color: #3B82F6;">3</div>
+                    <div class="step-icon icon-3">
+                        <i class="fas fa-undo-alt"></i>
+                    </div>
+                    <h3 class="step-title">Intrekking</h3>
+                    <p class="step-desc">
+                Onder economische of politieke druk wordt de dreiging afgezwakt of ingetrokken ('Chickens Out'). </p>
+                    <div class="market-effect" style="color: #3B82F6;">
+                        <i class="fas fa-handshake mr-1"></i> Kalmering
+                    </div>
+                </div>
+                <!-- Step 4 -->
+                <div class="step-card step-4">
+                    <div class="step-number" style="border-color: #10B981; color: #10B981;">4</div>
+                    <div class="step-icon icon-4">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="step-title">De Rally</h3>
+                    <p class="step-desc">
+                Opluchting keert terug in de markt. Beurzen herstellen snel en stijgen vaak boven het oude niveau. </p>
+                    <div class="market-effect" style="color: #10B981;">
+                        <i class="fas fa-arrow-up mr-1"></i> Risk-On
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="nl">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <link href="tailwind_theme/tailwind.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Roboto:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+        <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+        <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+        <style>body { margin: 0; padding: 0; overflow: hidden; background-color: #0F172A; font-family: 'Roboto', sans-serif; } .slide-container { width: 1280px; height: 720px; position: relative; display: flex; flex-direction: column; background-color: #0F172A; overflow: hidden; padding: 40px 60px; } /* Header Layout */.header { margin-bottom: 25px; border-bottom: 1px solid #334155; padding-bottom: 20px; display: flex; justify-content: space-between; align-items: center; } .header-content { display: flex; flex-direction: column; } .header-badge { display: inline-flex; align-items: center; background-color: rgba(245, 158, 11, 0.1); color: #F59E0B; border: 1px solid rgba(245, 158, 11, 0.3); padding: 4px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; width: fit-content; margin-bottom: 10px; } .header-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 2.2rem; color: white; line-height: 1.1; } .header-title span { color: #F59E0B;  /* Amber for Energy */ } /* Key Statistic Highlight */.key-stat-box { background-color: #1E293B; border-left: 5px solid #EF4444;  /* Red for alert/increase */ padding: 15px 25px; border-radius: 0 8px 8px 0; display: flex; align-items: center; } .stat-arrow { font-size: 2rem; color: #EF4444; margin-right: 15px; } .stat-value { font-family: 'Montserrat', sans-serif; font-size: 2.5rem; font-weight: 800; color: white; line-height: 1; } .stat-desc { margin-left: 15px; display: flex; flex-direction: column; } .stat-label { color: #94A3B8; font-size: 0.8rem; text-transform: uppercase; } .stat-sub { color: #CBD5E1; font-weight: 600; } /* Main Content Area */.main-content { display: flex; gap: 40px; height: 100%; flex: 1; } /* Chart Area */.chart-container { flex: 2; background-color: #1E293B; border-radius: 12px; padding: 20px; border: 1px solid #334155; position: relative; display: flex; flex-direction: column; margin-bottom: 88px; } .chart-header { display: flex; justify-content: space-between; margin-bottom: 15px; } .chart-title { color: white; font-weight: 600; font-family: 'Montserrat', sans-serif; } .chart-legend { color: #94A3B8; font-size: 0.8rem; } #price-chart { width: 100%; flex: 1; } /* Right Sidebar: Context & Analysis */.sidebar { flex: 1; display: flex; flex-direction: column; gap: 20px; } .info-card { background-color: rgba(30, 41, 59, 0.6); border-radius: 10px; padding: 20px; border: 1px solid #334155; } .card-title { color: #F59E0B; font-weight: 700; font-size: 1rem; margin-bottom: 1px; display: flex; align-items: center; font-family: 'Montserrat', sans-serif; } .card-text { color: #CBD5E1; font-size: 0.95rem; line-height: 1.5; } .alert-box { background-color: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 10px; padding: 10px; margin-top: 1px; margin-bottom: 500px; } .alert-header { color: #EF4444; font-weight: 700; display: flex; align-items: center; margin-bottom: 8px; } .alert-text { color: #FECACA; font-size: 0.9rem; } /* Comparison Bar */.comparison-bar { margin-top: 15px; background-color: #334155; height: 6px; border-radius: 3px; width: 100%; position: relative; margin-bottom: 5px; } .comp-fill { background-color: #EF4444; height: 100%; border-radius: 3px; width: 50%;  /* Represents 50% increase */ } .comp-labels { display: flex; justify-content: space-between; font-size: 0.75rem; color: #94A3B8; }</style>
+    </head>
+    <body>
+        <div class="slide-container">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-content">
+                    <div class="header-badge">
+                        <i class="fas fa-fire mr-2"></i>Artikel 2
+                    </div>
+                    <h1 class="header-title">Europese Gasprijs <span>Sterk Gestegen</span></h1>
+                </div>
+                <!-- Key Stat Box -->
+                <div class="key-stat-box">
+                    <div class="stat-arrow">
+                        <i class="fas fa-arrow-trend-up"></i>
+                    </div>
+                    <div class="stat-value">+50%</div>
+                    <div class="stat-desc">
+                        <span class="stat-label">Prijsstijging</span>
+                        <span class="stat-sub">Sinds 1 Januari</span>
+                    </div>
+                </div>
+            </header>
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Left: Chart -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">TTF Gasprijs (Euro/MWh) - 2026 YTD</div>
+                        <div class="chart-legend">
+                            <i class="fas fa-circle text-blue-500 mr-1" style="font-size: 8px; color: #F59E0B;"></i> Prijsontwikkeling
+                        </div>
+                    </div>
+                    <div id="price-chart"></div>
+                </div>
+                <!-- Right: Context -->
+                <div class="sidebar">
+                    <!-- Context Card -->
+                    <div class="info-card">
+                        <div class="card-title">
+                            <i class="fas fa-search mr-2"></i>Wat zegt het artikel?
+                        </div>
+                        <div class="card-text">
+                            <p>De Europese referentieprijs voor aardgas (TTF) heeft een onverwachte piek bereikt. Na een periode van relatieve stabiliteit in 2025, zien we nu een scherpe correctie omhoog.</p>
+                        </div>
+                    </div>
+                    <!-- Analysis Card -->
+                    <div class="info-card">
+                        <div class="card-title">
+                            <i class="fas fa-chart-bar mr-2"></i>Trendbreuk
+                        </div>
+                        <div class="card-text">
+                            <p>Analisten gingen uit van een normalisatie van de energiemarkt na de crisisjaren. Deze stijging van 50% in korte tijd doorkruist alle positieve voorspellingen.</p>
+                            <!-- Mini visual for context -->
+                            <div style="margin-top: 15px;">
+                                <div class="comp-labels">
+                                    <span>Januari</span>
+                                    <span>Huidig</span>
+                                </div>
+                                <div class="comparison-bar">
+                                    <div class="comp-fill" style="width: 100%;"></div>                                     
+                                    <!-- Visual fill representing growth -->
+                                    <div style="position: absolute; top: 0; left: 0; width: 66%; background-color: #64748B; height: 100%; border-radius: 3px; z-index: 1;"></div>
+                                </div>
+                                <div style="font-size: 0.7rem; color: #94A3B8; text-align: right;">*Visuele weergave stijging</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Alert/Consequence Hint -->
+                    <div class="alert-box">
+                        <div class="alert-header">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>Economisch Risico
+                        </div>
+                        <div class="alert-text">
+                            <p>Deze prijsniveaus vormen opnieuw een bedreiging voor de Europese industrie en koopkracht als ze aanhouden.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+        // Initialize ECharts Chart
+        var chartDom = document.getElementById('price-chart');
+        var myChart = echarts.init(chartDom);
+        var option;
+
+        // Generate dummy data for YTD 2026 gas price trend (rising curve)
+        // Starting at around 30, ending around 45 (50% increase)
+        let baseValue = 30;
+        let data = [];
+        let date = [];
+        for (let i = 1; i <= 120; i++) { // Approx 4 months
+            let day = i;
+            // Create a trend with volatility but overall upward
+            let randomFluctuation = (Math.random() - 0.4) * 1.5;
+            // Add a sharp increase in the last month
+            let trend = (i > 90) ? 0.3 : 0.05; 
+            
+            baseValue = baseValue + trend + randomFluctuation;
+            if(baseValue < 25) baseValue = 25; // Floor
+            
+            data.push(baseValue.toFixed(1));
+            date.push('Dag ' + i);
+        }
+
+        option = {
+            backgroundColor: 'transparent',
+            tooltip: {
+                trigger: 'axis',
+                backgroundColor: 'rgba(30, 41, 59, 0.9)',
+                borderColor: '#334155',
+                textStyle: { color: '#fff' }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                top: '10%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['Jan', 'Feb', 'Mrt', 'Apr'], // Simplified labels
+                axisLine: { lineStyle: { color: '#475569' } },
+                axisLabel: { color: '#94A3B8', fontSize: 12 },
+                splitLine: { show: false }
+            },
+            yAxis: {
+                type: 'value',
+                axisLine: { show: false },
+                axisLabel: { color: '#94A3B8', fontSize: 12, formatter: '€{value}' },
+                splitLine: { lineStyle: { color: '#334155', type: 'dashed' } },
+                min: 25
+            },
+            series: [
+                {
+                    name: 'Gasprijs (TTF)',
+                    type: 'line',
+                    smooth: true,
+                    symbol: 'none',
+                    lineStyle: {
+                        color: '#F59E0B',
+                        width: 4
+                    },
+                    areaStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                            { offset: 0, color: 'rgba(245, 158, 11, 0.5)' },
+                            { offset: 1, color: 'rgba(245, 158, 11, 0.0)' }
+                        ])
+                    },
+                    data: [30, 32, 29, 31, 33, 35, 34, 38, 40, 42, 41, 44, 45, 48] // Sample points for smooth curve
+                }
+            ]
+        };
+
+        myChart.setOption(option);
+        window.addEventListener('resize', function() {
+            myChart.resize();
+        });
+    </script>
+    </body>
+</html>

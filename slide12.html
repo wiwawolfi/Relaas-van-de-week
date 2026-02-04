@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="nl">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&amp;family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+        <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+        <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #0F172A; /* Slate 900 */
+            font-family: 'Roboto', sans-serif;
+            color: white;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #0F172A;
+            overflow: hidden;
+        }
+
+        /* Background Decor Layer */
+        .bg-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Central Content Wrapper */
+        .content-wrapper {
+            z-index: 10;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+        }
+
+        /* Icon Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .icon-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: rgba(30, 41, 59, 0.8); /* Slate 800 */
+            border: 2px solid #38BDF8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #38BDF8;
+            margin-bottom: 40px;
+            animation: float 3s ease-in-out infinite;
+            box-shadow: 0 0 0 10px rgba(56, 189, 248, 0.05);
+        }
+
+        /* Typography */
+        .main-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+        .text-white { color: white; }
+        .text-accent { color: #38BDF8; }
+
+        .subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 2rem;
+            color: #94A3B8; /* Slate 400 */
+            margin-bottom: 60px;
+        }
+
+        /* Contact Details Box */
+        .contact-box {
+            display: flex;
+            gap: 50px;
+            background-color: rgba(30, 41, 59, 0.5);
+            border: 1px solid #334155;
+            padding: 25px 50px;
+            border-radius: 50px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .c-icon {
+            color: #10B981; /* Emerald 500 */
+            font-size: 1.2rem;
+        }
+
+        .c-text {
+            color: #E2E8F0;
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+        
+        .c-label {
+            display: block;
+            font-size: 0.75rem;
+            color: #64748B;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        /* Bottom Footer */
+        .footer {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+            color: #475569;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Grid Background Pattern */
+        .grid-bg {
+            stroke: #1E293B;
+            stroke-width: 1;
+        }
+    </style>
+    </head>
+    <body>
+        <div class="slide-container">
+            <!-- SVG Background Decoration -->
+            <svg class="bg-layer" viewbox="0 0 1280 720">
+                <!-- Subtle Grid -->
+                <defs>
+                    <pattern height="40" id="grid" patternunits="userSpaceOnUse" width="40">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1E293B" stroke-width="1"></path>
+                    </pattern>
+                </defs>
+                <rect fill="url(#grid)" height="100%" width="100%"></rect>
+                <!-- Abstract Economic Lines -->
+                <path d="M 0 650 C 300 600, 500 700, 800 600 S 1280 650, 1280 650" fill="none" stroke="#38BDF8" stroke-opacity="0.1" stroke-width="2"></path>
+                <path d="M 0 680 C 300 630, 500 730, 800 630 S 1280 680, 1280 680" fill="none" stroke="#10B981" stroke-opacity="0.1" stroke-width="2"></path>
+                <!-- Decorative Circles -->
+                <circle cx="640" cy="360" fill="none" opacity="0.3" r="250" stroke="#334155" stroke-dasharray="10 10" stroke-width="1"></circle>
+                <circle cx="640" cy="360" fill="none" opacity="0.1" r="350" stroke="#334155" stroke-width="1"></circle>
+            </svg>
+            <div class="content-wrapper">
+                <!-- Icon -->
+                <div class="icon-circle">
+                    <i class="fas fa-question"></i>
+                </div>
+                <!-- Main Text -->
+                <h1 class="main-title"><span class="text-white">Dank u voor</span><br/><span class="text-accent">het luisteren</span></h1>
+                <p class="subtitle">Zijn er nog vragen?</p>
+                <!-- Contact Information -->
+                <div class="contact-box">
+                    <!-- Name -->
+                    <div class="contact-item">
+                        <i class="fas fa-user c-icon"></i>
+                        <div>
+                            <span class="c-label">Presentator</span>
+                            <span class="c-text">[Uw Naam]</span>
+                        </div>
+                    </div>
+                    <!-- Separator -->
+                    <div style="width: 1px; height: 30px; background-color: #334155;"></div>
+                    <!-- Email -->
+                    <div class="contact-item">
+                        <i class="fas fa-envelope c-icon" style="color: #38BDF8;"></i>
+                        <div>
+                            <span class="c-label">Email</span>
+                            <span class="c-text">email@school.nl</span>
+                        </div>
+                    </div>
+                    <!-- Separator -->
+                    <div style="width: 1px; height: 30px; background-color: #334155;"></div>
+                    <!-- Subject -->
+                    <div class="contact-item">
+                        <i class="fas fa-university c-icon" style="color: #F59E0B;"></i>
+                        <div>
+                            <span class="c-label">Vak</span>
+                            <span class="c-text">Economie</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <div class="footer">
+                <p>Economische Analyse 2026 • Internationale Handel &amp; Markten</p>
+            </div>
+        </div>
+    </body>
+</html>

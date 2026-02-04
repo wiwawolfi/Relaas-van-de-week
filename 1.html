@@ -1,0 +1,146 @@
+<!DOCTYPE html> 
+<html lang="nl"> 
+    <head> 
+        <meta charset="utf-8"/> 
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/> 
+        <link href="tailwind_theme/tailwind.css" rel="stylesheet" type="text/css"> 
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Roboto:wght@300;400;500&amp;display=swap" rel="stylesheet"/> 
+        <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/> 
+        <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>         
+        <style>body { margin: 0; padding: 0; overflow: hidden; background-color: #0F172A; font-family: 'Roboto', sans-serif; } .slide-container { width: 1280px; height: 720px; position: relative; display: flex; flex-direction: column; background-color: #0F172A; overflow: hidden; padding: 40px 60px; } /* Header */.header { margin-bottom: 25px; border-bottom: 1px solid #334155; padding-bottom: 15px; display: flex; justify-content: space-between; align-items: center; } .header-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 2.2rem; color: white; line-height: 1.1; } .header-title span { color: #F59E0B;  /* Amber for Energy */ } .concept-badge { background-color: rgba(245, 158, 11, 0.1); color: #F59E0B; border: 1px solid rgba(245, 158, 11, 0.3); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; } /* Content Layout */.main-content { display: flex; gap: 40px; flex: 1; } /* Left Column: Drivers */.drivers-col { flex: 1; display: flex; flex-direction: column; gap: 20px; } .driver-card { background-color: #1E293B; border-radius: 12px; padding: 15px 20px; display: flex; align-items: center; border: 1px solid #334155; transition: transform 0.2s; position: relative; overflow: hidden; } .driver-card::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 5px; } /* Specific Driver Styles */.driver-weather { border-left: 1px solid #60A5FA; } .driver-weather::before { background-color: #60A5FA; } .driver-supply { border-left: 1px solid #F87171; } .driver-supply::before { background-color: #F87171; } .driver-pipe { border-left: 1px solid #A78BFA; } .driver-pipe::before { background-color: #A78BFA; } .driver-lng { border-left: 1px solid #34D399; } .driver-lng::before { background-color: #34D399; } .driver-icon { width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-right: 20px; background-color: rgba(15, 23, 42, 0.6); } .driver-content h3 { color: white; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.1rem; margin: 0 0 5px 0; } .driver-content p { color: #94A3B8; font-size: 0.9rem; margin: 0; line-height: 1.3; } /* Right Column: Economics Diagram */.diagram-col { flex: 1.2; background-color: #1E293B; border-radius: 16px; padding: 20px; border: 1px solid #334155; display: flex; flex-direction: column; } .diagram-header { text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); } .diagram-title { color: white; font-weight: 700; font-family: 'Montserrat', sans-serif; } .diagram-sub { color: #64748B; font-size: 0.85rem; margin-top: 5px; } #supply-demand-chart { flex: 1; width: 100%; min-height: 350px; } /* Equation Box */.equation-box { background-color: #0F172A; border-radius: 12px; padding: 15px; margin-top: 20px; border: 1px solid #334155; text-align: center; display: flex; justify-content: center; align-items: center; gap: 15px; } .eq-part { display: flex; flex-direction: column; align-items: center; } .eq-label { font-size: 0.8rem; color: #94A3B8; margin-bottom: 4px; } .eq-val { font-weight: 800; font-size: 1.1rem; padding: 5px 12px; border-radius: 6px; } .eq-op { color: #64748B; font-size: 1.2rem; font-weight: 700; margin-top: 22px; } .val-demand { color: #9FE080; background: rgba(159, 224, 128, 0.1); } .val-supply { color: #F87171; background: rgba(248, 113, 113, 0.1); } .val-price { color: #F59E0B; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); } /* Icon Colors */.text-blue { color: #60A5FA; } .text-red { color: #F87171; } .text-purple { color: #A78BFA; } .text-green { color: #34D399; }</style>         
+    </head>     
+    <body> 
+        <div class="slide-container"> 
+            <header class="header"> 
+                <h1 class="header-title">Oorzaken van de <span>Stijgende Gasprijs</span></h1> 
+                <div class="concept-badge"> 
+                    <i class="fas fa-balance-scale mr-2"></i>Marktmechanisme
+                </div>                 
+            </header>             
+            <div class="main-content"> 
+                <div class="drivers-col"> 
+                    <p class="text-white font-semibold mb-2 pl-1" style="border-left: 3px solid #F59E0B;">Belangrijkste Drivers</p> 
+                    <div class="driver-card driver-weather"> 
+                        <div class="driver-icon text-blue"> 
+                            <i class="fas fa-snowflake"></i> 
+                        </div>                         
+                        <div class="driver-content"> 
+                            <h3>Koud Winterweer</h3> 
+                            <p>Lagere temperaturen zorgen direct voor een hogere vraag naar verwarming bij gezinnen en bedrijven.</p> 
+                        </div>                         
+                    </div>                     
+                    <div class="driver-card driver-supply"> 
+                        <div class="driver-icon text-red"> 
+                            <i class="fas fa-battery-quarter"></i> 
+                        </div>                         
+                        <div class="driver-content"> 
+                            <h3>Lage Gasvoorraden</h3> 
+                            <p>Europese opslagtanks zijn sneller leeggeraakt dan verwacht, wat de buffer verkleint.</p> 
+                        </div>                         
+                    </div>                     
+                    <div class="driver-card driver-pipe"> 
+                        <div class="driver-icon text-purple"> 
+                            <i class="fas fa-wrench"></i> 
+                        </div>                         
+                        <div class="driver-content"> 
+                            <h3>Minder Aanvoer Pijpleidingen</h3> 
+                            <p>Technische storingen en geopolitieke spanningen beperken de traditionele import.</p> 
+                        </div>                         
+                    </div>                     
+                    <div class="driver-card driver-lng"> 
+                        <div class="driver-icon text-green"> 
+                            <i class="fas fa-ship"></i> 
+                        </div>                         
+                        <div class="driver-content"> 
+                            <h3>LNG Afhankelijkheid</h3> 
+                            <p>Europa moet concurreren op de dure wereldmarkt voor vloeibaar gas (LNG).</p> 
+                        </div>                         
+                    </div>                     
+                </div>                 
+                <div class="diagram-col"> 
+                    <div class="diagram-header"> 
+                        <div class="diagram-title">Vraag &amp; Aanbod Dynamiek</div>                         
+                        <div class="diagram-sub">Visuele weergave van het prijseffect</div>                         
+                    </div>                     
+                    <div id="supply-demand-chart"></div>                     
+                    <div class="equation-box"> 
+                        <div class="eq-part"> 
+                            <span class="eq-label">Vraag</span> 
+                            <div class="eq-val val-demand"> 
+                                <i class="fas fa-arrow-up mr-1"></i> HOOG
+                            </div>                             
+                        </div>                         
+                        <div class="eq-op">+</div>                         
+                        <div class="eq-part"> 
+                            <span class="eq-label">Aanbod</span> 
+                            <div class="eq-val val-supply"> 
+                                <i class="fas fa-arrow-down mr-1"></i> LAAG
+                            </div>                             
+                        </div>                         
+                        <div class="eq-op">=</div>                         
+                        <div class="eq-part"> 
+                            <span class="eq-label">Marktprijs</span> 
+                            <div class="eq-val val-price"> 
+                                <i class="fas fa-euro-sign mr-1"></i> PIEK
+                            </div>                             
+                        </div>                         
+                    </div>                     
+                </div>                 
+            </div>             
+        </div>         
+        <script>
+var chartDom = document.getElementById('supply-demand-chart');
+var myChart = echarts.init(chartDom);
+var option;
+
+option = {
+backgroundColor: 'transparent',
+grid: { top: '10%', left: '10%', right: '15%', bottom: '10%' },
+xAxis: { name: 'Hoeveelheid (Q)', type: 'value', splitLine: { show: false }, axisLine: { lineStyle: { color: '#94A3B8' } }, axisLabel: { show: false }, max: 100 },
+yAxis: { name: 'Prijs (P)', type: 'value', splitLine: { show: false }, axisLine: { lineStyle: { color: '#94A3B8' } }, axisLabel: { show: false }, max: 100 },
+series: [
+    // Demand Curve (Original) - Passive
+    { name: 'Vraag (Oud)', type: 'line', smooth: true, data: [[10, 90], [90, 10]], lineStyle: { color: '#475569', type: 'dashed', width: 2 }, symbol: 'none', markPoint: { data: [{ coord: [90, 10], value: 'D1', label: { position: 'right', color: '#475569' } }] } },
+    // Demand Curve (New)
+    { name: 'Vraag (Nieuw)', type: 'line', smooth: true, data: [[20, 95], [95, 20]], lineStyle: { color: '#9FE080', width: 3 }, symbol: 'none', markPoint: { data: [{ coord: [95, 20], value: 'D2 (Vraag ↑)', label: { position: 'right', color: '#9FE080', fontWeight: 'bold' } }] } },
+    // Supply Curve (Original)
+    { name: 'Aanbod (Oud)', type: 'line', smooth: true, data: [[10, 10], [90, 90]], lineStyle: { color: '#475569', type: 'dashed', width: 2 }, symbol: 'none', markPoint: { data: [{ coord: [90, 90], value: 'S1', label: { position: 'right', color: '#475569' } }] } },
+    // Supply Curve (New)
+    { name: 'Aanbod (Nieuw)', type: 'line', smooth: true, data: [[5, 25], [75, 95]], lineStyle: { color: '#F87171', width: 3 }, symbol: 'none', markPoint: { data: [{ coord: [75, 95], value: 'S2 (Aanbod ↓)', label: { position: 'left', color: '#F87171', fontWeight: 'bold' } }] } },
+    // **Aangepast: Equilibrium Points + Arrow (helemaal van voren)**
+    {
+        type: 'scatter',
+        data: [
+            { value: [50, 50], itemStyle: { color: '#94A3B8' }, name: 'Oud Evenwicht' },
+            { value: [47.5, 68], itemStyle: { color: '#F59E0B', borderColor: '#fff', borderWidth: 2 }, name: 'Nieuw Evenwicht' }
+        ],
+        symbolSize: 12,
+        label: {
+            show: true,
+            position: [0, -20], // label boven bolletje
+            formatter: function(param) {
+                return param.name === 'Nieuw Evenwicht' ? 'Nieuwe Prijs' : '';
+            },
+            color: '#F59E0B',
+            fontWeight: 'bold',
+            fontSize: 14
+        },
+        z: 10 // hoogste z-index: boven alles
+    },
+    {
+        type: 'lines',
+        coordinateSystem: 'cartesian2d',
+        data: [
+            { coords: [[50, 50], [47.5, 68]], lineStyle: { color: '#F59E0B', width: 2, type: 'dotted', curveness: 0.2 } }
+        ],
+        effect: { show: true, symbol: 'arrow', symbolSize: 6, period: 2, color: '#F59E0B' },
+        z: 5 // pijl onder scatter
+    }
+]
+};
+
+myChart.setOption(option);
+window.addEventListener('resize', function() { myChart.resize(); });
+</script>         
+    </body>     
+</html>

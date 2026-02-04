@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="nl">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Roboto:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+        <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+        <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #0F172A;
+            font-family: 'Roboto', sans-serif;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background-color: #0F172A;
+            overflow: hidden;
+            padding: 40px 60px;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 2.2rem;
+            color: white;
+        }
+        .header-title span {
+            color: #3B82F6;
+        }
+        
+        .header-badge {
+            background-color: #1E293B;
+            color: #CBD5E1;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid #334155;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Main Grid Layout */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+            height: 100%;
+        }
+
+        /* Common Card Styles */
+        .card-panel {
+            background-color: #1E293B;
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid #334155;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: white;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+        .panel-title i {
+            margin-right: 12px;
+            color: #60A5FA;
+        }
+
+        /* Left Column: Strategic Importance (Stats) */
+        .stat-highlight {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: rgba(15, 23, 42, 0.4);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #334155;
+        }
+        
+        .big-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #3B82F6;
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+        .stat-label {
+            color: #94A3B8;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        .stat-sub {
+            color: #64748B;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        .growth-box {
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .growth-icon {
+            font-size: 2rem;
+            color: #10B981;
+            margin-right: 20px;
+            background-color: rgba(16, 185, 129, 0.1);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .growth-text h4 {
+            color: white;
+            font-weight: 700;
+            margin: 0 0 5px 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .growth-text p {
+            color: #CBD5E1;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Right Column: Trade Expectations */
+        .trade-flows {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: 100%;
+        }
+
+        .flow-section {
+            flex: 1;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .flow-eu {
+            background-color: rgba(59, 130, 246, 0.05);
+            border-left: 4px solid #3B82F6;
+        }
+        
+        .flow-india {
+            background-color: rgba(245, 158, 11, 0.05);
+            border-left: 4px solid #F59E0B;
+        }
+
+        .flow-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .flow-title {
+            font-weight: 700;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .flow-direction {
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+        .dir-eu { color: #60A5FA; background: rgba(59, 130, 246, 0.1); }
+        .dir-in { color: #FBBF24; background: rgba(245, 158, 11, 0.1); }
+
+        .sector-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        
+        .sector-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            background-color: #0F172A;
+            padding: 15px 10px;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+        
+        .sector-icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        .sector-name {
+            font-size: 0.8rem;
+            color: #CBD5E1;
+            font-weight: 500;
+        }
+
+        /* Theme colors for icons */
+        .theme-blue { color: #60A5FA; }
+        .theme-orange { color: #FBBF24; }
+        .theme-green { color: #34D399; }
+        .theme-purple { color: #A78BFA; }
+
+    </style>
+    </head>
+    <body>
+        <div class="slide-container">
+            <!-- Header -->
+            <header class="header">
+                <h1 class="header-title">Belang van het <span>EU-India Akkoord</span></h1>
+                <div class="header-badge">
+                    <i class="fas fa-chart-pie mr-2 text-blue-400"></i>
+                    Economische Impact
+                </div>
+            </header>
+            <!-- Main Content -->
+            <div class="content-grid">
+                <!-- Left Column: Why Important? -->
+                <div class="card-panel">
+                    <div class="panel-title">
+                        <i class="fas fa-globe"></i>
+                        Waarom is dit belangrijk?
+                    </div>
+                    <!-- Stat 1: Population -->
+                    <div class="stat-highlight">
+                        <div class="big-number">
+                            <i class="fas fa-users text-3xl mr-2 opacity-50 align-middle"></i>2.0
+                        </div>
+                        <div class="stat-label">Miljard Inwoners</div>
+                        <div class="stat-sub">Gecombineerde marktomvang EU + India</div>
+                    </div>
+                    <!-- Stat 2: Economic Growth -->
+                    <div class="growth-box">
+                        <div class="growth-icon">
+                            <i class="fas fa-arrow-trend-up"></i>
+                        </div>
+                        <div class="growth-text">
+                            <h4>Groeimotor</h4>
+                            <p>India is momenteel één van de <strong>snelst groeiende economieën</strong> ter wereld.</p>
+                        </div>
+                    </div>
+                    <div style="margin-top: auto; padding-top: 20px;">
+                        <p style="color: #94A3B8; font-size: 0.9rem; line-height: 1.5;"><i class="fas fa-info-circle mr-2 text-blue-400"></i>
+                        Door het verlagen van handelsbarrières kan het handelsvolume tussen beide regio's in de komende jaren verdubbelen. </p>
+                    </div>
+                </div>
+                <!-- Right Column: Trade Expectations -->
+                <div class="card-panel">
+                    <div class="panel-title">
+                        <i class="fas fa-exchange-alt"></i>
+                        Verwachte Export Groei
+                    </div>
+                    <div class="trade-flows">
+                        <!-- EU Export Flow -->
+                        <div class="flow-section flow-eu">
+                            <div class="flow-header">
+                                <div class="flow-title">Europese Export</div>
+                                <div class="flow-direction dir-eu">EU <i class="fas fa-long-arrow-alt-right mx-1"></i> India
+                                </div>
+                            </div>
+                            <div class="sector-list">
+                                <div class="sector-item">
+                                    <i class="fas fa-car sector-icon theme-blue"></i>
+                                    <span class="sector-name">Auto's</span>
+                                </div>
+                                <div class="sector-item">
+                                    <i class="fas fa-cogs sector-icon theme-blue"></i>
+                                    <span class="sector-name">Machines</span>
+                                </div>
+                                <div class="sector-item">
+                                    <i class="fas fa-flask sector-icon theme-blue"></i>
+                                    <span class="sector-name">Chemie</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- India Export Flow -->
+                        <div class="flow-section flow-india">
+                            <div class="flow-header">
+                                <div class="flow-title">Indiase Export</div>
+                                <div class="flow-direction dir-in">India <i class="fas fa-long-arrow-alt-right mx-1"></i> EU
+                                </div>
+                            </div>
+                            <div class="sector-list">
+                                <div class="sector-item">
+                                    <i class="fas fa-tshirt sector-icon theme-orange"></i>
+                                    <span class="sector-name">Textiel</span>
+                                </div>
+                                <div class="sector-item">
+                                    <i class="fas fa-laptop-code sector-icon theme-orange"></i>
+                                    <span class="sector-name">IT-Diensten</span>
+                                </div>
+                                <div class="sector-item">
+                                    <i class="far fa-gem sector-icon theme-orange"></i>
+                                    <span class="sector-name">Juwelen</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

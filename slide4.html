@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="nl">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Roboto:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+        <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+        <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #0F172A;
+            font-family: 'Roboto', sans-serif;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background-color: #0F172A;
+            overflow: hidden;
+            padding: 40px 60px;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .header-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 2.2rem;
+            color: white;
+        }
+        .header-title span {
+            color: #3B82F6; /* Blue 500 */
+        }
+        .concept-tag {
+            background-color: #1E293B;
+            color: #94A3B8;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid #334155;
+        }
+
+        /* Main Layout */
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            gap: 30px;
+        }
+
+        /* Top Section: Definition & Features */
+        .top-section {
+            display: flex;
+            gap: 30px;
+            height: 45%;
+        }
+
+        .def-card {
+            flex: 1;
+            background-color: #1E293B;
+            border-radius: 12px;
+            padding: 30px;
+            border-left: 6px solid #3B82F6;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .def-label {
+            color: #60A5FA;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .def-text {
+            color: white;
+            font-size: 1.4rem;
+            line-height: 1.4;
+            font-weight: 300;
+        }
+        .def-text strong {
+            font-weight: 600;
+            color: #E2E8F0;
+        }
+
+        .features-grid {
+            flex: 1.2;
+            display: grid;
+            grid-template-rows: repeat(3, 1fr);
+            gap: 15px;
+        }
+        .feature-item {
+            background-color: rgba(30, 41, 59, 0.5);
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+        }
+        .feature-icon-box {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(59, 130, 246, 0.1);
+            color: #3B82F6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            margin-right: 20px;
+        }
+        .feature-text {
+            color: #CBD5E1;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Bottom Section: Infographic Flow */
+        .flow-section {
+            flex: 1;
+            background-color: #1E293B;
+            border-radius: 16px;
+            padding: 20px 40px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border: 1px solid #334155;
+        }
+        .flow-label {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #334155;
+            color: #CBD5E1;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .flow-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            margin-top: 10px;
+            padding: 0 20px;
+        }
+
+        .flow-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 180px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #0F172A;
+            border: 3px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
+
+        /* Step Colors */
+        .step-1 .step-circle { border-color: #F87171; color: #F87171; } /* Red for Reduction */
+        .step-2 .step-circle { border-color: #60A5FA; color: #60A5FA; } /* Blue for Trade */
+        .step-3 .step-circle { border-color: #34D399; color: #34D399; } /* Green for Growth */
+        .step-4 .step-circle { border-color: #A78BFA; color: #A78BFA; } /* Purple for Competition */
+
+        .step-title {
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        .step-desc {
+            color: #94A3B8;
+            font-size: 0.9rem;
+        }
+
+        /* Arrows */
+        .arrow-connector {
+            flex: 1;
+            height: 2px;
+            background-color: #475569;
+            margin: 0 10px;
+            position: relative;
+            top: -35px; /* Align with circle centers approx */
+        }
+        .arrow-connector::after {
+            content: '\f054'; /* FontAwesome Chevron Right */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: -5px;
+            top: -7px;
+            color: #475569;
+            font-size: 14px;
+        }
+        
+        .trend-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+        .trend-down { background: rgba(248, 113, 113, 0.2); color: #F87171; }
+        .trend-up { background: rgba(52, 211, 153, 0.2); color: #34D399; }
+
+    </style>
+    </head>
+    <body>
+        <div class="slide-container">
+            <!-- Header -->
+            <header class="header">
+                <h1 class="header-title">Wat is een <span>Vrijhandelsakkoord</span>?</h1>
+                <div class="concept-tag">
+                    <i class="fas fa-book-open mr-2"></i>Concept
+                </div>
+            </header>
+            <div class="content-wrapper">
+                <!-- Top Section -->
+                <div class="top-section">
+                    <!-- Definition -->
+                    <div class="def-card">
+                        <p class="def-label">Definitie</p>
+                        <p class="def-text">
+                        Een <strong>overeenkomst</strong> tussen landen of regio's om onderlinge <strong>handelsbelemmeringen</strong> te verminderen of volledig weg te nemen. </p>
+                    </div>
+                    <!-- Features -->
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <div class="feature-icon-box">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <p class="feature-text">Invoertarieven worden verlaagd of afgeschaft</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon-box">
+                                <i class="fas fa-boxes-packing"></i>
+                            </div>
+                            <p class="feature-text">Handel wordt eenvoudiger en goedkoper</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon-box">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <p class="feature-text">Bedrijven krijgen toegang tot buitenlandse markten</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Bottom Section: Flow Infographic -->
+                <div class="flow-section">
+                    <div class="flow-label">Economisch Effect</div>
+                    <div class="flow-container">
+                        <!-- Step 1 -->
+                        <div class="flow-step step-1">
+                            <div class="step-circle">
+                                <i class="fas fa-tag"></i>
+                            </div>
+                            <h3 class="step-title">Tarieven</h3>
+                            <div class="trend-badge trend-down">
+                                <i class="fas fa-arrow-down mr-1"></i> OMLAAG
+                            </div>
+                        </div>
+                        <div class="arrow-connector"></div>
+                        <!-- Step 2 -->
+                        <div class="flow-step step-2">
+                            <div class="step-circle">
+                                <i class="fas fa-dolly"></i>
+                            </div>
+                            <h3 class="step-title">Handel</h3>
+                            <div class="trend-badge trend-up" style="color: #60A5FA; background: rgba(96, 165, 250, 0.2);">
+                                <i class="fas fa-arrow-up mr-1"></i> OMHOOG
+                            </div>
+                        </div>
+                        <div class="arrow-connector"></div>
+                        <!-- Step 3 -->
+                        <div class="flow-step step-3">
+                            <div class="step-circle">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3 class="step-title">Groei</h3>
+                            <div class="trend-badge trend-up">
+                                <i class="fas fa-arrow-up mr-1"></i> OMHOOG
+                            </div>
+                        </div>
+                        <div class="arrow-connector"></div>
+                        <!-- Step 4 -->
+                        <div class="flow-step step-4">
+                            <div class="step-circle">
+                                <i class="fas fa-users-viewfinder"></i>
+                            </div>
+                            <h3 class="step-title">Concurrentie</h3>
+                            <div class="trend-badge trend-up" style="color: #A78BFA; background: rgba(167, 139, 250, 0.2);">
+                                <i class="fas fa-arrow-up mr-1"></i> BETER
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="nl" data-theme="light" style="">
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Roboto:wght@300;400;500&amp;display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+        <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #0F172A;
+            font-family: 'Roboto', sans-serif;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background-color: #0F172A;
+            overflow: hidden;
+            padding: 40px 60px;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 2.2rem;
+            color: white;
+            line-height: 1.1;
+        }
+        .header-title span {
+            color: #EF4444; /* Red for Impact/Warning */
+        }
+        .impact-badge {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #EF4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Main Content */
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+        }
+
+        /* Domino Effect Visual Line */
+        .domino-line {
+            position: absolute;
+            left: 50px;
+            top: 40px;
+            bottom: 40px;
+            width: 4px;
+            background-color: #334155;
+            z-index: 0;
+        }
+        
+        /* Impact Card Styles */
+        .impact-card {
+            flex: 1;
+            background-color: #1E293B;
+            border-radius: 12px;
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            border: 1px solid #334155;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.2s, box-shadow 0.2s;
+            overflow: hidden;
+        }
+        .impact-card:hover {
+            transform: translateX(10px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Connecting Node */
+        .node-connector {
+            position: absolute;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #0F172A;
+            border: 4px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            font-size: 1.5rem;
+        }
+        
+        .card-content {
+            margin-left: 80px; /* Space for node */
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .text-section {
+            flex: 2;
+        }
+        .card-title {
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+        .card-desc {
+            color: #94A3B8;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .stat-section {
+            flex: 1;
+            text-align: right;
+            padding-left: 20px;
+            border-left: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 60px;
+        }
+        .stat-val {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            margin-bottom: 2px;
+        }
+        .stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #64748B;
+        }
+
+        /* Specific Card Themes */
+        
+        /* 1. Households */
+        .theme-households { border-left: 6px solid #60A5FA; }
+        .node-households { border-color: #60A5FA; color: #60A5FA; box-shadow: 0 0 15px rgba(96, 165, 250, 0.2); }
+        .val-households { color: #60A5FA; }
+        .bg-icon-households {
+            position: absolute;
+            right: -20px;
+            bottom: -20px;
+            font-size: 8rem;
+            color: rgba(96, 165, 250, 0.05);
+            z-index: 0;
+        }
+
+        /* 2. Businesses */
+        .theme-business { border-left: 6px solid #F59E0B; }
+        .node-business { border-color: #F59E0B; color: #F59E0B; box-shadow: 0 0 15px rgba(245, 158, 11, 0.2); }
+        .val-business { color: #F59E0B; }
+        .bg-icon-business {
+            position: absolute;
+            right: -20px;
+            bottom: -20px;
+            font-size: 8rem;
+            color: rgba(245, 158, 11, 0.05);
+            z-index: 0;
+        }
+
+        /* 3. Economy */
+        .theme-economy { border-left: 6px solid #EF4444; }
+        .node-economy { border-color: #EF4444; color: #EF4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.2); }
+        .val-economy { color: #EF4444; }
+        .bg-icon-economy {
+            position: absolute;
+            right: -20px;
+            bottom: -20px;
+            font-size: 8rem;
+            color: rgba(239, 68, 68, 0.05);
+            z-index: 0;
+        }
+
+        /* Arrow Indicators between cards */
+        .flow-arrow {
+            position: absolute;
+            left: 42px; /* Center of line */
+            width: 20px;
+            height: 20px;
+            background-color: #334155;
+            color: #94A3B8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            z-index: 1;
+            border: 2px solid #0F172A;
+        }
+
+    </style>
+    </head>
+    <body style="">
+        <div class="slide-container">
+            <!-- Header -->
+            <header class="header">
+                <h1 class="header-title">Gevolgen van <span>Hoge Gasprijzen</span></h1>
+                <div class="impact-badge">
+                    <i class="fas fa-link mr-2"></i>Kettingreactie
+                </div>
+            </header>
+            <!-- Main Content -->
+            <div class="content-wrapper">
+                <!-- Visual Line -->
+                <div class="domino-line"></div>
+                <!-- Flow Arrows -->
+                <div class="flow-arrow" style="top: 33%; transform: translate(-1.6285px, -11.3995px);">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="flow-arrow" style="top: 66%;">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <!-- Card 1: Households -->
+                <div class="impact-card theme-households">
+                    <i class="fas fa-home bg-icon-households"></i>
+                    <div class="node-connector node-households">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="text-section">
+                            <h2 class="card-title">Gezinnen &amp; Huishoudens</h2>
+                            <p class="card-desc">Directe impact op de <strong>koopkracht</strong> door explosief stijgende energiefacturen. Minder budget voor andere uitgaven.</p>
+                        </div>
+                        <div class="stat-section">
+                            <div class="stat-val val-households">
+                                <i class="fas fa-arrow-up text-xl mr-1"></i>Factuur
+                            </div>
+                            <div class="stat-label">Stijgende Vaste Lasten</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2: Businesses -->
+                <div class="impact-card theme-business">
+                    <i class="fas fa-industry bg-icon-business"></i>
+                    <div class="node-connector node-business">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="text-section">
+                            <h2 class="card-title">Bedrijven &amp; Industrie</h2>
+                            <p class="card-desc">Hogere <strong>productiekosten</strong> zetten marges onder druk. Energie-intensieve sectoren (chemie, staal) dreigen productie stil te leggen.</p>
+                        </div>
+                        <div class="stat-section">
+                            <div class="stat-val val-business">
+                                <i class="fas fa-chart-line text-xl mr-1"></i>Kosten
+                            </div>
+                            <div class="stat-label">Risico op Productiestop</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3: Economy -->
+                <div class="impact-card theme-economy">
+                    <i class="fas fa-coins bg-icon-economy"></i>
+                    <div class="node-connector node-economy">
+                        <i class="fas fa-euro-sign"></i>
+                    </div>
+                    <div class="card-content">
+                        <div class="text-section">
+                            <h2 class="card-title">Macro-Economie</h2>
+                            <p class="card-desc">Gevaar voor een <strong>loon-prijsspiraal</strong> en aanhoudende inflatie. Centrale banken worden gedwongen rente hoog te houden.</p>
+                        </div>
+                        <div class="stat-section">
+                            <div class="stat-val val-economy">
+                                <i class="fas fa-percentage text-xl mr-1"></i>Inflatie
+                            </div>
+                            <div class="stat-label">Economische Vertraging</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
