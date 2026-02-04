@@ -1,68 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HTML Slides Navigation</title>
-  <style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HTML Slide Deck</title>
+<style>
     html, body {
-      margin: 0;
-      height: 100%;
-      width: 100%;
-      background: #000; /* optional: black background for slides */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        background-color: #0F172A;
+        display: flex;
+        justify-content: center; /* centers horizontally */
+        align-items: center;     /* centers vertically */
     }
 
     #slideContainer {
-      width: 1280px;    /* native slide width */
-      height: 720px;    /* native slide height */
-      transform-origin: top left;
+        width: 1280px;
+        height: 720px;
+        transform-origin: top left;
     }
 
     iframe {
-      width: 1280px;
-      height: 720px;
-      border: none;
-      display: block;
+        width: 1280px;
+        height: 720px;
+        border: none;
+        display: block;
     }
-  </style>
+</style>
 </head>
 <body>
-  <div id="slideContainer">
-    <iframe id="slideFrame" src="slide1.html"></iframe>
-  </div>
+    <div id="slideContainer">
+        <iframe id="slideFrame" src="slide1.html"></iframe>
+    </div>
 
-  <script>
+<script>
     const totalSlides = 12;
     let currentSlide = 1;
     const iframe = document.getElementById('slideFrame');
     const container = document.getElementById('slideContainer');
 
-    function loadSlide(number) {
-      if (number < 1) number = 1;
-      if (number > totalSlides) number = totalSlides;
-      currentSlide = number;
-      iframe.src = `slide${currentSlide}.html`;
+    function loadSlide(n) {
+        if(n < 1) n = 1;
+        if(n > totalSlides) n = totalSlides;
+        currentSlide = n;
+        iframe.src = `slide${currentSlide}.html`;
     }
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') loadSlide(currentSlide + 1);
-      if (e.key === 'ArrowLeft') loadSlide(currentSlide - 1);
+    document.addEventListener('keydown', e => {
+        if(e.key === 'ArrowRight') loadSlide(currentSlide + 1);
+        if(e.key === 'ArrowLeft') loadSlide(currentSlide - 1);
     });
 
     function resizeSlides() {
-      const scale = Math.min(
-        window.innerWidth / 1280,
-        window.innerHeight / 720
-      );
-      container.style.transform = `scale(${scale})`;
+        const scale = Math.min(
+            window.innerWidth / 1280,
+            window.innerHeight / 720
+        );
+        container.style.transform = `scale(${scale})`;
     }
 
     window.addEventListener('resize', resizeSlides);
     resizeSlides(); // initial scale
-  </script>
+</script>
 </body>
 </html>
