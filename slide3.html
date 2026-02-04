@@ -1,260 +1,232 @@
 <!DOCTYPE html>
 <html lang="nl">
-    <head>
-        <meta charset="utf-8"/>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-        <link href="tailwind_theme/tailwind.css" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Roboto:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
-        <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
-        <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
-        <style>body { margin: 0; padding: 0; overflow: hidden; background-color: #0F172A; font-family: 'Roboto', sans-serif; } .slide-container { width: 1280px; height: 720px; position: relative; display: flex; flex-direction: column; background-color: #0F172A; overflow: hidden; padding: 40px 60px; box-sizing: border-box } /* Layout Grid */.main-content { display: flex; height: 100%; gap: 40px; margin-top: 20px; } .left-col { flex: 1.2; display: flex; flex-direction: column; background-color: #1E293B; border-radius: 16px; overflow: hidden; border: 1px solid #334155; position: relative; margin-bottom: 74.5px; } .right-col { flex: 1; display: flex; flex-direction: column; justify-content: center; } /* Header Styles */.header { display: flex; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #334155; padding-bottom: 20px; } .badge-pill { background-color: rgba(59, 130, 246, 0.1); color: #60A5FA; border: 1px solid rgba(59, 130, 246, 0.3); padding: 6px 12px; border-radius: 6px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; margin-right: 15px; } .slide-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.8rem; color: white; } .slide-title span { color: #3B82F6; } /* Map Container */#map-container { width: 100%; height: 100%; min-height: 400px; margin-bottom: 40px; } .map-overlay { position: absolute; bottom: 20px; left: 20px; background-color: rgba(15, 23, 42, 0.9); padding: 15px; border-radius: 8px; border-left: 4px solid #3B82F6; max-width: 280px; z-index: 10; } .overlay-title { color: #60A5FA; font-weight: 700; font-size: 0.9rem; margin-bottom: 5px; font-family: 'Montserrat', sans-serif; } .overlay-text { color: #CBD5E1; font-size: 0.8rem; line-height: 1.4; } /* Bullet Points Section */.content-box { background-color: #1E293B; border-radius: 12px; padding: 25px; margin-bottom: 10px; border: 1px solid #334155; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); } .section-header { display: flex; align-items: center; margin-bottom: 15px; } .section-icon { width: 32px; height: 32px; background-color: rgba(59, 130, 246, 0.2); color: #60A5FA; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 0.9rem; } .section-title { color: white; font-weight: 600; font-family: 'Montserrat', sans-serif; font-size: 1.1rem; } .bullet-list { list-style: none; padding: 0; margin: 0; } .bullet-item { display: flex; align-items: flex-start; margin-bottom: 15px; color: #CBD5E1; line-height: 1.5; } .bullet-dot { min-width: 8px; height: 8px; background-color: #3B82F6; border-radius: 50%; margin-top: 8px; margin-right: 12px; } .highlight-stat { font-weight: 700; color: white; } /* Stat Row */.stat-row { display: flex; gap: 5px; margin-top: auto; margin-bottom: 100px; } .stat-card { flex: 1; background-color: rgba(51, 65, 85, 0.5); padding: 15px; border-radius: 8px; text-align: center; border: 1px solid rgba(255,255,255,0.05); } .stat-value { font-size: 1.8rem; font-weight: 800; color: #3B82F6; font-family: 'Montserrat', sans-serif; margin-bottom: 5px; } .stat-label { font-size: 0.75rem; color: #94A3B8; text-transform: uppercase; font-weight: 500; }</style>
-    </head>
-    <body>
-        <div class="slide-container">
-            <!-- Header -->
-            <div class="header">
-                <div class="badge-pill">Artikel 1</div>
-                <h1 class="slide-title">EU en India sluiten <span>Historisch Handelsakkoord</span></h1>
-            </div>
-            <!-- Main Content -->
-            <div class="main-content">
-                <!-- Left Column: Map Visualization -->
-                <div class="left-col">
-                    <div id="map-container"></div>
-                    <div class="map-overlay">
-                        <div class="overlay-title">HANDELSROUTE</div>
-                        <div class="overlay-text">
-                            <p>Strategische verbinding tussen de Europese markt (450M consumenten) en India (1.4Mrd inwoners).</p>
-                        </div>
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link href="tailwind_theme/tailwind.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Roboto:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+
+    <style>
+    /* --- CROPPING FIX --- */
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 1280px;
+        height: 720px;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    .slide-container {
+        width: 1280px;
+        height: 720px;
+        padding: 40px 60px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        background-color: #0F172A;
+        overflow: hidden;
+        box-sizing: border-box; /* ← key fix */
+    }
+
+    /* Layout Grid */
+    .main-content { display: flex; height: 100%; gap: 40px; margin-top: 20px; }
+
+    .left-col {
+        flex: 1.2;
+        display: flex;
+        flex-direction: column;
+        background-color: #1E293B;
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid #334155;
+        position: relative;
+        margin-bottom: 20px; /* reduced from 74.5px */
+    }
+
+    .right-col { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+
+    /* Header Styles */
+    .header { display: flex; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #334155; padding-bottom: 20px; }
+    .badge-pill { background-color: rgba(59, 130, 246, 0.1); color: #60A5FA; border: 1px solid rgba(59, 130, 246, 0.3); padding: 6px 12px; border-radius: 6px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; margin-right: 15px; }
+    .slide-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.8rem; color: white; }
+    .slide-title span { color: #3B82F6; }
+
+    /* Map Container */
+    #map-container { width: 100%; height: 100%; min-height: 400px; margin-bottom: 40px; max-height: calc(100% - 20px); }
+
+    .map-overlay { position: absolute; bottom: 20px; left: 20px; background-color: rgba(15, 23, 42, 0.9); padding: 15px; border-radius: 8px; border-left: 4px solid #3B82F6; max-width: 280px; z-index: 10; }
+    .overlay-title { color: #60A5FA; font-weight: 700; font-size: 0.9rem; margin-bottom: 5px; font-family: 'Montserrat', sans-serif; }
+    .overlay-text { color: #CBD5E1; font-size: 0.8rem; line-height: 1.4; }
+
+    /* Bullet Points Section */
+    .content-box { background-color: #1E293B; border-radius: 12px; padding: 25px; margin-bottom: 10px; border: 1px solid #334155; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+    .section-header { display: flex; align-items: center; margin-bottom: 15px; }
+    .section-icon { width: 32px; height: 32px; background-color: rgba(59, 130, 246, 0.2); color: #60A5FA; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 0.9rem; }
+    .section-title { color: white; font-weight: 600; font-family: 'Montserrat', sans-serif; font-size: 1.1rem; }
+    .bullet-list { list-style: none; padding: 0; margin: 0; }
+    .bullet-item { display: flex; align-items: flex-start; margin-bottom: 15px; color: #CBD5E1; line-height: 1.5; }
+    .bullet-dot { min-width: 8px; height: 8px; background-color: #3B82F6; border-radius: 50%; margin-top: 8px; margin-right: 12px; }
+    .highlight-stat { font-weight: 700; color: white; }
+
+    /* Stat Row */
+    .stat-row { display: flex; gap: 5px; margin-top: auto; padding-bottom: 20px; /* reduced from 100px */ }
+    .stat-card { flex: 1; background-color: rgba(51, 65, 85, 0.5); padding: 15px; border-radius: 8px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
+    .stat-value { font-size: 1.8rem; font-weight: 800; color: #3B82F6; font-family: 'Montserrat', sans-serif; margin-bottom: 5px; }
+    .stat-label { font-size: 0.75rem; color: #94A3B8; text-transform: uppercase; font-weight: 500; }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="badge-pill">Artikel 1</div>
+            <h1 class="slide-title">EU en India sluiten <span>Historisch Handelsakkoord</span></h1>
+        </div>
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Column: Map Visualization -->
+            <div class="left-col">
+                <div id="map-container"></div>
+                <div class="map-overlay">
+                    <div class="overlay-title">HANDELSROUTE</div>
+                    <div class="overlay-text">
+                        <p>Strategische verbinding tussen de Europese markt (450M consumenten) en India (1.4Mrd inwoners).</p>
                     </div>
                 </div>
-                <!-- Right Column: Text & Bullets -->
-                <div class="right-col">
-                    <!-- Box 1: Wat is er gebeurd? -->
-                    <div class="content-box">
-                        <div class="section-header">
-                            <div class="section-icon">
-                                <i class="fas fa-newspaper"></i>
-                            </div>
-                            <div class="section-title">Wat is er gebeurd?</div>
+            </div>
+            <!-- Right Column: Text & Bullets -->
+            <div class="right-col">
+                <!-- Box 1: Wat is er gebeurd? -->
+                <div class="content-box">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-newspaper"></i>
                         </div>
-                        <ul class="bullet-list">
-                            <li class="bullet-item">
-                                <span class="bullet-dot"></span>
-                                <p>De Europese Unie en India hebben na <span class="highlight-stat">bijna 20 jaar</span> onderhandelen een definitief vrijhandelsakkoord bereikt.</p>
-                            </li>
-                            <li class="bullet-item">
-                                <span class="bullet-dot"></span>
-                                <p>Dit wordt beschouwd als één van de <strong>grootste handelsdeals</strong> ooit voor de Europese Unie gezien de omvang van beide markten.</p>
-                            </li>
-                        </ul>
+                        <div class="section-title">Wat is er gebeurd?</div>
                     </div>
-                    <!-- Box 2: Kernpunten -->
-                    <div class="content-box">
-                        <div class="section-header">
-                            <div class="section-icon">
-                                <i class="fas fa-tags"></i>
-                            </div>
-                            <div class="section-title">Kernpunten Akkoord</div>
+                    <ul class="bullet-list">
+                        <li class="bullet-item">
+                            <span class="bullet-dot"></span>
+                            <p>De Europese Unie en India hebben na <span class="highlight-stat">bijna 20 jaar</span> onderhandelen een definitief vrijhandelsakkoord bereikt.</p>
+                        </li>
+                        <li class="bullet-item">
+                            <span class="bullet-dot"></span>
+                            <p>Dit wordt beschouwd als één van de <strong>grootste handelsdeals</strong> ooit voor de Europese Unie gezien de omvang van beide markten.</p>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Box 2: Kernpunten -->
+                <div class="content-box">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-tags"></i>
                         </div>
-                        <ul class="bullet-list">
-                            <li class="bullet-item">
-                                <span class="bullet-dot"></span>
-                                <p><strong>Tariefverlaging:</strong> Invoerrechten worden verlaagd of volledig afgeschaft op meer dan 90% van de verhandelde goederen.</p>
-                            </li>
-                            <li class="bullet-item">
-                                <span class="bullet-dot"></span>
-                                <p><strong>Diensten:</strong> Makkelijkere toegang voor Europese bedrijven tot de Indiase dienstensector (IT, bankwezen).</p>
-                            </li>
-                        </ul>
+                        <div class="section-title">Kernpunten Akkoord</div>
                     </div>
-                    <!-- Stats Footer -->
-                    <div class="stat-row">
-                        <div class="stat-card">
-                            <div class="stat-value">20</div>
-                            <div class="stat-label">Jaar Onderhandeld</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value">90%</div>
-                            <div class="stat-label">Tariefvrij</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value">€120Mrd</div>
-                            <div class="stat-label">Verwachte Waarde</div>
-                        </div>
+                    <ul class="bullet-list">
+                        <li class="bullet-item">
+                            <span class="bullet-dot"></span>
+                            <p><strong>Tariefverlaging:</strong> Invoerrechten worden verlaagd of volledig afgeschaft op meer dan 90% van de verhandelde goederen.</p>
+                        </li>
+                        <li class="bullet-item">
+                            <span class="bullet-dot"></span>
+                            <p><strong>Diensten:</strong> Makkelijkere toegang voor Europese bedrijven tot de Indiase dienstensector (IT, bankwezen).</p>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Stats Footer -->
+                <div class="stat-row">
+                    <div class="stat-card">
+                        <div class="stat-value">20</div>
+                        <div class="stat-label">Jaar Onderhandeld</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">90%</div>
+                        <div class="stat-label">Tariefvrij</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">€120Mrd</div>
+                        <div class="stat-label">Verwachte Waarde</div>
                     </div>
                 </div>
             </div>
         </div>
-        <script>
-        // Initialize ECharts Map
-        var chartDom = document.getElementById('map-container');
-        var myChart = echarts.init(chartDom);
-        var option;
+    </div>
+    <script>
+    // Initialize ECharts Map
+    var chartDom = document.getElementById('map-container');
+    var myChart = echarts.init(chartDom);
+    var option;
 
-        // Simplified world map data for visualization focus
-        option = {
-            backgroundColor: '#1E293B',
-            geo: {
-                map: 'world',
-                roam: false,
-                center: [40, 30], // Centered between EU and India
-                zoom: 2.2,
-                label: {
-                    show: false
-                },
-                itemStyle: {
-                    areaColor: '#334155',
-                    borderColor: '#1E293B',
-                    borderWidth: 1
-                },
-                emphasis: {
-                    itemStyle: {
-                        areaColor: '#475569'
-                    }
-                },
-                regions: [
-                    {
-                        name: 'India',
-                        itemStyle: {
-                            areaColor: '#3B82F6',
-                            opacity: 0.6
-                        }
-                    },
-                    {
-                        name: 'France', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Germany', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Italy', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Spain', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Poland', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Belgium', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Luxembourg', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Romania', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Bulgaria', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Hungary', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Austria', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Ireland', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Cyprus', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Croatia', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Czech Rep.', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Denmark', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Estonia', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Finland', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Greece', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Latvia', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Lithuania', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Malta', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Netherlands', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Portugal', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Slovakia', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Slovenia', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Spain', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'Sweden', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 }
-                    },
-                    {
-                        name: 'United Kingdom', itemStyle: { areaColor: '#334155', opacity: 1 } // Explicitly not EU color
-                    }
-                ]
-            },
-            series: [
-                {
-                    type: 'lines',
-                    coordinateSystem: 'geo',
-                    effect: {
-                        show: true,
-                        period: 4,
-                        trailLength: 0.1,
-                        symbol: 'arrow',
-                        symbolSize: 8,
-                        color: '#60A5FA'
-                    },
-                    lineStyle: {
-                        color: '#60A5FA',
-                        width: 2,
-                        opacity: 0.4,
-                        curveness: 0.3
-                    },
-                    data: [
-                        { coords: [[10, 50], [78, 22]] }, // EU to India
-                        { coords: [[78, 22], [10, 50]] }  // India to EU
-                    ]
-                }
+    // Simplified world map data for visualization focus
+    option = {
+        backgroundColor: '#1E293B',
+        geo: {
+            map: 'world',
+            roam: false,
+            center: [40, 30],
+            zoom: 2.2,
+            label: { show: false },
+            itemStyle: { areaColor: '#334155', borderColor: '#1E293B', borderWidth: 1 },
+            emphasis: { itemStyle: { areaColor: '#475569' } },
+            regions: [
+                { name: 'India', itemStyle: { areaColor: '#3B82F6', opacity: 0.6 } },
+                { name: 'France', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Germany', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Italy', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Spain', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Poland', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Belgium', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Luxembourg', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Romania', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Bulgaria', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Hungary', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Austria', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Ireland', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Cyprus', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Croatia', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Czech Rep.', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Denmark', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Estonia', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Finland', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Greece', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Latvia', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Lithuania', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Malta', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Netherlands', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Portugal', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Slovakia', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Slovenia', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Spain', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'Sweden', itemStyle: { areaColor: '#3B82F6', opacity: 0.8 } },
+                { name: 'United Kingdom', itemStyle: { areaColor: '#334155', opacity: 1 } }
             ]
-        };
-        
-        // Load map data first (using a simplified built-in map or dummy coord system if full world map json isn't available in this context)
-        // Since we can't load external map JSON easily here without fetch, we will simulate the visual with basic geo setup if possible
-        // For this demo context, assuming ECharts has world map registered or we use a basic coordinate system
-        
-        // NOTE: In a real environment, you'd need to register the world map JSON. 
-        // For this specific output generation where external fetch might be limited, 
-        // we'll assume the environment has the map or we'd use a static image fallback.
-        // However, I will proceed with the option setup which is correct for ECharts.
-        
-        fetch('https://raw.githubusercontent.com/apache/echarts/master/test/data/map/json/world.json')
-            .then(response => response.json())
-            .then(worldJson => {
-                echarts.registerMap('world', worldJson);
-                myChart.setOption(option);
-            });
-            
-        window.addEventListener('resize', function() {
-            myChart.resize();
+        },
+        series: [
+            {
+                type: 'lines',
+                coordinateSystem: 'geo',
+                effect: { show: true, period: 4, trailLength: 0.1, symbol: 'arrow', symbolSize: 8, color: '#60A5FA' },
+                lineStyle: { color: '#60A5FA', width: 2, opacity: 0.4, curveness: 0.3 },
+                data: [
+                    { coords: [[10, 50], [78, 22]] },
+                    { coords: [[78, 22], [10, 50]] }
+                ]
+            }
+        ]
+    };
+
+    fetch('https://raw.githubusercontent.com/apache/echarts/master/test/data/map/json/world.json')
+        .then(response => response.json())
+        .then(worldJson => {
+            echarts.registerMap('world', worldJson);
+            myChart.setOption(option);
         });
+
+    window.addEventListener('resize', function() { myChart.resize(); });
     </script>
-    </body>
+</body>
 </html>
