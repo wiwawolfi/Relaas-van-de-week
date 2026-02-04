@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HTML Presentation</title>
+
 <style>
   html, body {
     margin: 0;
@@ -12,12 +13,34 @@
     height: 100%;
     background: black;
     overflow: hidden;
-    font-family: sans-serif;
+    font-family: system-ui, sans-serif;
   }
-  #slide-container {
-    width: 100%;
-    height: 100%;
+
+  /* Fullscreen stage */
+  #stage {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    overflow: hidden;
   }
+
+  /* Scaled & centered wrapper */
+  #scale-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: center center;
+  }
+
+  iframe {
+    width: 1280px;   /* originele slide breedte */
+    height: 720px;   /* originele slide hoogte */
+    border: none;
+    display: block;
+    pointer-events: none; /* voorkomt focus-problemen */
+  }
+
   .counter {
     position: fixed;
     bottom: 16px;
@@ -25,15 +48,26 @@
     color: rgba(255,255,255,0.7);
     font-size: 14px;
     pointer-events: none;
+    z-index: 1000;
   }
 </style>
 </head>
-<body>
 
-<div id="slide-container"></div>
+<body tabindex="0">
+
+<div id="stage">
+  <div id="scale-wrapper">
+    <iframe id="slide" src="slide1.html"></iframe>
+  </div>
+</div>
+
 <div class="counter" id="counter">1 / 12</div>
 
 <script>
+/* Slide resolutie */
+const SLIDE_WIDTH = 1280;
+const SLIDE_HEIGHT = 720;
+
 const slides = [
   "slide1.html",
   "slide2.html",
@@ -50,22 +84,37 @@ const slides = [
 ];
 
 let index = 0;
-const container = document.getElementById("slide-container");
-const counter = document.getElementById("counter");
 
-// Load a slide via fetch
-async function loadSlide(i) {
-  const response = await fetch(slides[i]);
-  const html = await response.text();
-  container.innerHTML = html;
+const iframe = document.getElementById("slide");
+const counter = document.getElementById("counter");
+const wrapper = document.getElementById("scale-wrapper");
+
+/* Laad slide */
+function loadSlide(i) {
+  iframe.src = slides[i];
   counter.textContent = `${i + 1} / ${slides.length}`;
 }
 
-// Initial load
-loadSlide(index);
+/* Schaal en centreer slide */
+function scaleSlide() {
+  const scaleX = window.innerWidth / SLIDE_WIDTH;
+  const scaleY = window.innerHeight / SLIDE_HEIGHT;
+  const scale = Math.min(scaleX, scaleY);
 
-// Arrow key navigation
-window.addEventListener("keydown", e => {
+  wrapper.style.transform =
+    `translate(-50%, -50%) scale(${scale})`;
+}
+
+/* Init */
+loadSlide(index);
+scaleSlide();
+document.body.focus();
+
+/* Resize */
+window.addEventListener("resize", scaleSlide);
+
+/* Arrow keys only */
+document.body.addEventListener("keydown", e => {
   if (e.key === "ArrowRight" && index < slides.length - 1) {
     index++;
     loadSlide(index);
@@ -76,6 +125,11 @@ window.addEventListener("keydown", e => {
     loadSlide(index);
     e.preventDefault();
   }
+});
+
+/* Klik = focus terug */
+document.body.addEventListener("click", () => {
+  document.body.focus();
 });
 </script>
 
